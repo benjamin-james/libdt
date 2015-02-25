@@ -7,6 +7,7 @@ typedef struct
 	void **buffer;
 } array;
 
+void array_sort(array *array, int (*cmp)(void *, void *));
 array *array_create(int size);
 void array_empty(array *array);
 void array_destroy(array *array);
