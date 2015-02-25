@@ -7,7 +7,13 @@
 
 array *array_copy(array *a)
 {
-	
+	array *b = array_create(a->size);
+	int i;
+	for(i = 0; i < a->size; i++)
+	{
+		array_append(b,a->buffer[i]);
+	}
+	return b;
 }
 void msort(array *a, int begin, int end, int (*cmp)(void *, void *))
 {
@@ -15,7 +21,8 @@ void msort(array *a, int begin, int end, int (*cmp)(void *, void *))
 	int middle = begin + (end - begin) / 2;
 	msort(a,begin,middle);
 	msort(a,middle+1,end);
-	array *b = array_copy
+	array *b = array_copy(a);
+	
 }
 void array_sort(array *a, int (*cmp)(void *, void *))
 {
