@@ -7,18 +7,19 @@ typedef struct
 	void **buffer;
 } array;
 
-void array_sort(array *array, int (*cmp)(void *, void *));
+void array_sort(array *a, int (*cmp)(void *, void *));
 array *array_create(int size);
-void array_empty(array *array);
-void array_destroy(array *array);
-void array_append(array *array, void *data);
-void array_push(array *array, void *data);
-void *array_peekLast(array *array);
-void *array_peek(array *array);
-void array_insert(array *array, int index, void *data);
-void *array_remove(array *array, int index);
-void *array_get(const array *array, int index);
-void *array_set(array *array, int index, void *data);
-void array_set_size(array *array, int size);
-int array_get_size(const array *array);
+array *array_copy(array *a);
+void array_empty(array *a);
+void array_destroy(array *a);
+void array_append(array *a, void *data);
+void array_push(array *a, void *data);
+void *array_peekLast(array *a);
+void *array_peek(array *a);
+void array_insert(array *a, int index, void *data);
+void *array_remove(array *a, int index);
+void *array_get(const array *a, int index);
+void *array_set(array *a, int index, void *data);
+void array_set_size(array *a, int size);
+int array_get_size(const array *a);
 #endif 
