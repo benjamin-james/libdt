@@ -16,20 +16,14 @@ array *array_copy(array *a)
 	b->size = a->size;
 	return b;
 }
-void msort(array *a, int begin, int end, int (*cmp)(void *, void *))
+void msort(array *a, int begin, int end, int (*cmp)(void *, void *), array *b)
 {
 	if(end - begin <= 1) return;
 	int middle = begin + (end - begin) / 2;
 	int i,j,k;
-	msort(a,begin,middle);
-	msort(a,middle+1,end);
-	array *b = array_create(end-begin+1);
-	for(i = 0; i < end-begin+1; i++)
-	{
-		b->buffer[i] = a->buffer[i];
-	}
-	b->size = end-begin+1;
-	for(i = 0, j = middle-begin+1, k = begin; i <= middle-begin && j <= end-begin; k++)
+	msort(a,begin,middle,cmp,b);
+	msort(a,middle+1,end,cmp,b);
+	for(i = begin, j = middle+1, k = begin; i <= middle && j <= end; k++)
 	{
 		if(cmp(b->buffer[i],b->buffer[j]) <= 0)
 		{
@@ -40,7 +34,7 @@ void msort(array *a, int begin, int end, int (*cmp)(void *, void *))
 			a->buffer[k] = b->buffer[j++];
 		}
 	}
-	for(;i <= middle-begin; i++,k++)
+	for(;i <= middle; i++,k++)
 	{
 		a->buffer[k] = b->buffer[i];
 	}
@@ -48,7 +42,9 @@ void msort(array *a, int begin, int end, int (*cmp)(void *, void *))
 }
 void array_sort(array *a, int (*cmp)(void *, void *))
 {
-	msort(a,0,array_get_size(a),cmp);
+	array *b = array_copy(a);
+	msort(a,0,array_get_size(a)-1,cmp,b);
+	array_destroy(b);
 }
 array *array_create(int size)
 {
