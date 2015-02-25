@@ -38,7 +38,6 @@ void msort(array *a, int begin, int end, int (*cmp)(void *, void *), array *b)
 	{
 		a->buffer[k] = b->buffer[i];
 	}
-	array_destroy(b);
 }
 void array_sort(array *a, int (*cmp)(void *, void *))
 {
