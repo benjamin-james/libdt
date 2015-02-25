@@ -9,7 +9,7 @@ typedef struct
 
 void array_sort(array *a, int (*cmp)(void *, void *));
 array *array_create(int size);
-array *array_copy(array *a, int start, int size);
+array *array_copy(array *a);
 void array_empty(array *a);
 void array_destroy(array *a);
 void array_append(array *a, void *data);
