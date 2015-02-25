@@ -11,18 +11,40 @@ array *array_copy(array *a)
 	int i;
 	for(i = 0; i < a->size; i++)
 	{
-		array_append(b,a->buffer[i]);
+		b->buffer[i] = a->buffer[i];
 	}
+	b->size = a->size;
 	return b;
 }
 void msort(array *a, int begin, int end, int (*cmp)(void *, void *))
 {
 	if(end - begin <= 1) return;
 	int middle = begin + (end - begin) / 2;
+	int i,j,k;
 	msort(a,begin,middle);
 	msort(a,middle+1,end);
-	array *b = array_copy(a);
-	
+	array *b = array_create(end-begin+1);
+	for(i = 0; i < end-begin+1; i++)
+	{
+		b->buffer[i] = a->buffer[i];
+	}
+	b->size = end-begin+1;
+	for(i = 0, j = middle-begin+1, k = begin; i <= middle-begin && j <= end-begin; k++)
+	{
+		if(cmp(b->buffer[i],b->buffer[j]) <= 0)
+		{
+			a->buffer[k] = b->buffer[i++];
+		}
+		else
+		{
+			a->buffer[k] = b->buffer[j++];
+		}
+	}
+	for(;i <= middle-begin; i++,k++)
+	{
+		a->buffer[k] = b->buffer[i];
+	}
+	array_destroy(b);
 }
 void array_sort(array *a, int (*cmp)(void *, void *))
 {
