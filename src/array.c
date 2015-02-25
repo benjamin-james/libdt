@@ -18,11 +18,15 @@ array *array_copy(array *a)
 }
 void msort(array *a, int begin, int end, int (*cmp)(void *, void *), array *b)
 {
-	if(end - begin <= 1) return;
+	if(end <= begin) return;
 	int middle = begin + (end - begin) / 2;
 	int i,j,k;
 	msort(a,begin,middle,cmp,b);
 	msort(a,middle+1,end,cmp,b);
+	for(i = begin; i <= end; i++)
+	{
+		b->buffer[i] = a->buffer[i];
+	}
 	for(i = begin, j = middle+1, k = begin; i <= middle && j <= end; k++)
 	{
 		if(cmp(b->buffer[i],b->buffer[j]) <= 0)
