@@ -14,7 +14,11 @@ void freeArray(array *);
 int main(int argc, char **argv)
 {
 	srand(time(0));
-	if(argc < 2) printf("Usage: %s //d\n",argv[0]);
+	if(argc < 2) 
+	{
+		printf("Usage: %s \\d\n",argv[0]);
+		return -1;
+	}
 	array *a = randArray(atoi(argv[1]));
 
 	uint64_t nano = rdtsc();
