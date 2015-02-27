@@ -7,7 +7,7 @@
 #include "array.h"
 
 inline uint64_t rdtsc();
-inline int intcmp(void *, void *);
+int intcmp(void *, void *);
 array *randArray(int);
 void freeArray(array *);
 
@@ -41,7 +41,7 @@ inline uint64_t rdtsc()
 		: "%ebx", "%ecx" );
     return (uint64_t)hi << 32 | lo;
 }
-inline int intcmp(void *a, void *b)
+int intcmp(void *a, void *b)
 {
 	return *(int *)a - *(int *)b;
 }
