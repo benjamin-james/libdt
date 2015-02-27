@@ -14,6 +14,7 @@ void array_empty(array *a);
 void array_destroy(array *a);
 void array_append(array *a, void *data);
 void array_push(array *a, void *data);
+void *array_pop(array *a);
 void *array_peekLast(array *a);
 void *array_peek(array *a);
 void array_insert(array *a, int index, void *data);
