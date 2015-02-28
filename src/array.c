@@ -41,6 +41,7 @@ array *array_create(int size)
 	array *a = malloc(sizeof(array));
 	if(a == NULL || size <= 0) return NULL;
 	a->buffer = malloc(size * sizeof(void*));
+	a->size = 0;
 	if(a->buffer == NULL)
 	{
 		free(a);
