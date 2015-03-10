@@ -5,6 +5,21 @@
 
 #define START_SIZE 4
 
+void array_shuffle(array *a)
+{
+	int i,r;
+	void *tmp;
+	for(i = a->size-1; i >= 0; i--)
+	{
+		r = rand() % i;
+		if(a->buffer[i] && a->buffer[r])
+		{
+			tmp = a->buffer[i];
+			a->buffer[i] = a->buffer[r];
+			a->buffer[r] = tmp;
+		}
+	}
+}
 array *array_copy(array *a)
 {
 	array *b = array_create(a->size);
