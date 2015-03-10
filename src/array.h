@@ -7,6 +7,7 @@ typedef struct
 	void **buffer;
 } array;
 
+void array_shuffle(array *a);
 void array_sort(array *a, int (*cmp)(void *, void *));
 array *array_create(int size);
 array *array_copy(array *a);
