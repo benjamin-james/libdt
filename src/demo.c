@@ -2,6 +2,7 @@
 #include "stdint.h"
 #include "stdio.h"
 #include "stdlib.h"
+#include "time.h"
 
 #include "array.h"
 
@@ -12,6 +13,7 @@ void freeArray(struct array *);
 
 int main(int argc, char **argv)
 {
+	srand(time(0));
 	if(argc < 2) 
 	{
 		printf("Usage: %s \\d\n",argv[0]);
