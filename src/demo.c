@@ -2,24 +2,22 @@
 #include "stdint.h"
 #include "stdio.h"
 #include "stdlib.h"
-#include "time.h"
 
 #include "array.h"
 
 inline uint64_t rdtsc();
 int intcmp(void *, void *);
-array *randArray(int);
-void freeArray(array *);
+struct array *randArray(int);
+void freeArray(struct array *);
 
 int main(int argc, char **argv)
 {
-	srand(time(0));
 	if(argc < 2) 
 	{
 		printf("Usage: %s \\d\n",argv[0]);
 		return -1;
 	}
-	array *a = randArray(atoi(argv[1]));
+	struct array *a = randArray(atoi(argv[1]));
 
 	uint64_t nano = rdtsc();
 	array_sort(a,intcmp);
@@ -45,19 +43,20 @@ int intcmp(void *a, void *b)
 {
 	return *(int *)a - *(int *)b;
 }
-array *randArray(int length)
+struct array *randArray(int length)
 {
 	int i;
-	array *a = array_create(length);
+	struct array *a = array_create(length);
 	for(i = 0; i < length; i++)
 	{
 		int *m = malloc(sizeof(int));
-		*m = rand();
+		*m = i;
 		array_append(a,m);
 	}
+	array_shuffle(a);
 	return a;
 }
-void freeArray(array *a)
+void freeArray(struct array *a)
 {
 	int i;
 	for(i = 0; i < array_get_size(a); i++) free(a->buffer[i]);
