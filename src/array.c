@@ -5,7 +5,8 @@
 
 #define START_SIZE 4
 
-struct array *array_create(int size)
+
+struct array *array_create(int size, int (*cmp)(void *, void *))
 {
 	if (size <= 0)
 		return NULL;
@@ -13,6 +14,7 @@ struct array *array_create(int size)
 	if (a == NULL)
 		return NULL;
 	a->buffer = malloc(size * sizeof(void*));
+	a->cmp = cmp;
 	a->size = 0;
 	if (a->buffer == NULL) {
 		free(a);
@@ -34,6 +36,50 @@ void array_destroy(struct array *a)
 	if (a->buffer)
 		free(a->buffer);
 	free(a);
+}
+
+static int binary_search(const struct array *a, void *data)
+{
+	if (!a || !data)
+		return -1;
+	void *buf = NULL;
+	int result = -1;
+	int end = a->size;
+	int mid = end / 2;
+	int begin = 0;
+	while (end > 0 && !buf) {
+		mid = end / 2;
+		result = a->cmp(data, array_get(a, begin + mid));
+		if (result > 0) {
+			begin += mid + 1;
+			end -= mid + 1;
+		} else if (result < 0) {
+			end = mid;
+		} else {
+			buf = array_get(a, begin + mid);
+			begin += mid;
+		}
+	}
+	if (begin > a->size)
+		begin--;
+	return begin;
+}
+void *array_search(const struct array *a, void *data)
+{
+	int i = binary_search(a, data);
+	if (i < 0)
+		return NULL;
+	return a->buffer[i];
+}
+void array_add(struct array *a, void *data)
+{
+	int pos = binary_search(a, data);
+	if (pos < 0)
+		return;
+	if (a->buffer[pos])
+		array_set(a, pos, data);
+	else
+		array_insert(a, pos, data);
 }
 
 void array_append(struct array *a, void *data)
@@ -187,24 +233,24 @@ void array_shuffle(struct array *a)
 }
 struct array *array_copy(struct array *a)
 {
-	struct array *b = array_create(a->size);
+	struct array *b = array_create(a->size, a->cmp);
 	int i;
 	for (i = 0; i < a->size; i++)
 		b->buffer[i] = a->buffer[i];
 	b->size = a->size;
 	return b;
 }
-void msort(struct array *a, int begin, int end, int (*cmp)(void *, void *), struct array *b)
+static void msort(struct array *a, int begin, int end, struct array *b)
 {
 	if (end <= begin) 
 		return;
 	int i,j,k,middle = begin + (end - begin) / 2;
-	msort(a,begin,middle,cmp,b);
-	msort(a,middle+1,end,cmp,b);
+	msort(a,begin,middle,b);
+	msort(a,middle+1,end,b);
 	for (i = begin; i <= end; i++) 
 		b->buffer[i] = a->buffer[i];
 	for (i = begin, j = middle+1, k = begin; i <= middle && j <= end; k++) {
-		if (cmp(b->buffer[i],b->buffer[j]) <= 0) 
+		if (a->cmp(b->buffer[i],b->buffer[j]) <= 0) 
 			a->buffer[k] = b->buffer[i++];
 		else 
 			a->buffer[k] = b->buffer[j++];
@@ -212,9 +258,9 @@ void msort(struct array *a, int begin, int end, int (*cmp)(void *, void *), stru
 	for (;i <= middle; i++,k++) 
 		a->buffer[k] = b->buffer[i];
 }
-void array_sort(struct array *a, int (*cmp)(void *, void *))
+void array_sort(struct array *a)
 {
 	struct array *b = array_copy(a);
-	msort(a,0,array_get_size(a)-1,cmp,b);
+	msort(a,0,array_get_size(a)-1,b);
 	array_destroy(b);
 }
