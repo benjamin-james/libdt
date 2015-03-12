@@ -4,10 +4,14 @@
 struct array {
 	int alloc,size;
 	void **buffer;
+	int (*cmp)(void *, void *);
 };
 
-struct array *array_create(int size);
+struct array *array_create(int size, int (*cmp)(void *, void *));
 void array_destroy(struct array *a);
+
+void *array_search(const struct array *a, void *data);
+void array_add(struct array *a, void *data);
 
 void *array_get(const struct array *a, int index);
 void *array_set(struct array *a, int index, void *data);
@@ -24,6 +28,6 @@ void array_set_size(struct array *a, int size);
 int array_get_size(const struct array *a);
 
 void array_shuffle(struct array *a);
-void array_sort(struct array *a, int (*cmp)(void *, void *));
+void array_sort(struct array *a);
 
 #endif
