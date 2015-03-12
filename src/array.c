@@ -177,7 +177,7 @@ void array_shuffle(struct array *a)
 	int i,r;
 	void *tmp;
 	for (i = a->size-1; i >= 0; i--) {
-		r = rand() % i;
+		r = rand() % (i+1);
 		if (a->buffer[i] && a->buffer[r]) {
 			tmp = a->buffer[i];
 			a->buffer[i] = a->buffer[r];
