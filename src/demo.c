@@ -7,7 +7,7 @@
 #include "array.h"
 
 inline uint64_t rdtsc();
-int intcmp(void *v, void *v);
+int intcmp(void *v, void *v1);
 struct array *randArray(int i);
 void freeArray(struct array *a);
 
