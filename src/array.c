@@ -8,6 +8,7 @@
 
 struct array *array_create(int size, int (*cmp)(void *, void *))
 {
+	struct array *a;
 	if (size <= 0)
 		return NULL;
 	struct array *a = malloc(sizeof(struct array));
@@ -31,7 +32,7 @@ void array_empty(struct array *a)
 
 void array_destroy(struct array *a)
 {
-	if (!a) 
+	if (!a)
 		return;
 	if (a->buffer)
 		free(a->buffer);
@@ -40,13 +41,10 @@ void array_destroy(struct array *a)
 
 static int binary_search(const struct array *a, void *data)
 {
-	if (!a || !data)
-		return -1;
 	void *buf = NULL;
-	int result = -1;
-	int end = a->size;
-	int mid = end / 2;
-	int begin = 0;
+	int result = -1, end = a->size, mid = a->size / 2, begin = 0;
++       if (!data)
++               return -1;
 	while (end > 0 && !buf) {
 		mid = end / 2;
 		result = a->cmp(data, array_get(a, begin + mid));
@@ -102,12 +100,13 @@ void array_append(struct array *a, void *data)
 void array_push(struct array *a, void * data)
 {
 	int i;
+	void **temp;
 	if (a->size == a->alloc) {
 		if (a->buffer != NULL) {
 			a->alloc *= 2;
-			void **temp = malloc(a->alloc * sizeof(void*));
+			temp = malloc(a->alloc * sizeof(void*));
 			if (temp) {
-				for (i = 0; i < a->size; i++) 
+				for (i = 0; i < a->size; i++)
 					temp[i + 1] = a->buffer[i];
 				free(a->buffer);
 				a->buffer = temp;
@@ -118,9 +117,8 @@ void array_push(struct array *a, void * data)
 				a->alloc = START_SIZE;
 		}
 	} else {
-		for (i = a->size; i > 0; i--) {
+		for (i = a->size; i > 0; i--)
 			a->buffer[i] = a->buffer[i - 1];
-		}
 	}
 	if (a->buffer != NULL) {
 		a->buffer[0] = data;
@@ -130,6 +128,7 @@ void array_push(struct array *a, void * data)
 
 void array_insert(struct array *a, int pos, void *data)
 {
+	void **temp;
 	if (pos == 0) {
 		array_push(a, data);
 	} else if (pos == a->size) {
@@ -138,7 +137,7 @@ void array_insert(struct array *a, int pos, void *data)
 		int i;
 		if (a->size == a->alloc) {
 			a->alloc *= 2;
-			void **temp = malloc(a->alloc * sizeof(void*));
+			temp = malloc(a->alloc * sizeof(void*));
 			if (temp) {
 				memcpy(temp, a->buffer, pos * sizeof(void*));
 				memcpy(temp + pos + 1, a->buffer + pos, (a->size - pos) * sizeof(void*));
@@ -146,9 +145,8 @@ void array_insert(struct array *a, int pos, void *data)
 				a->buffer = temp;
 			}
 		} else {
-			for (i = a->size - 1; i >= pos; i--) {
+			for (i = a->size - 1; i >= pos; i--)
 				a->buffer[i + 1] = a->buffer[i];
-			}
 		}
 		a->buffer[pos] = data;
 		a->size++;
@@ -204,7 +202,7 @@ void array_set_size(struct array *a, int size)
 	a->buffer = realloc(a->buffer, size);
 	if (a->buffer)  {
 		a->alloc = size;
-		if (a->alloc < a->size) 
+		if (a->alloc < a->size)
 			a->size = a->alloc;
 	} else {
 		a->alloc = 0;
@@ -242,17 +240,17 @@ struct array *array_copy(struct array *a)
 }
 static void msort(struct array *a, int begin, int end, struct array *b)
 {
+	int i,j,k,middle = begin + (end - begin) / 2;
 	if (end <= begin) 
 		return;
-	int i,j,k,middle = begin + (end - begin) / 2;
 	msort(a,begin,middle,b);
 	msort(a,middle+1,end,b);
-	for (i = begin; i <= end; i++) 
+	for (i = begin; i <= end; i++)
 		b->buffer[i] = a->buffer[i];
 	for (i = begin, j = middle+1, k = begin; i <= middle && j <= end; k++) {
-		if (a->cmp(b->buffer[i],b->buffer[j]) <= 0) 
+		if (a->cmp(b->buffer[i],b->buffer[j]) <= 0)
 			a->buffer[k] = b->buffer[i++];
-		else 
+		else
 			a->buffer[k] = b->buffer[j++];
 	}
 	for (;i <= middle; i++,k++) 
