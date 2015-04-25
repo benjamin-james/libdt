@@ -11,7 +11,7 @@ struct array *array_create(int size, int (*cmp)(void *, void *))
 	struct array *a;
 	if (size <= 0)
 		return NULL;
-	struct array *a = malloc(sizeof(struct array));
+	a = malloc(sizeof(struct array));
 	if (a == NULL)
 		return NULL;
 	a->buffer = malloc(size * sizeof(void*));
@@ -43,8 +43,8 @@ static int binary_search(const struct array *a, void *data)
 {
 	void *buf = NULL;
 	int result = -1, end = a->size, mid = a->size / 2, begin = 0;
-+       if (!data)
-+               return -1;
+	if (!data)
+		return -1;
 	while (end > 0 && !buf) {
 		mid = end / 2;
 		result = a->cmp(data, array_get(a, begin + mid));
