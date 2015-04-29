@@ -9,7 +9,6 @@ A dynamic array library for general purpose.
   To use the library, simply type
   <br><code>#include "array.h"</code><br>
   into the file using the functions, and link with <code>array.o</code> (the compiled library).
-# Compiling / Installation
-  Type <code>./configure && make && sudo make install</code> to compile 
-and install the library.
+# Compiling
+	Type <code>make</code> to get array.o
 # Have fun!
