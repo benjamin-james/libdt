@@ -8,7 +8,7 @@ A dynamic array library for general purpose.
 # Use
   To use the library, simply type
   <br><code>#include "array.h"</code><br>
-  into the file using the functions, and link with <code>array.o</code> (the compiled library).
+  into the file using the functions, and link with <code>-LLIBDIR -Wl,-rpath -Wl,LIBDIR</code> where LIBDIR is the location of the installed library.
 # Compiling
-	Type <code>make</code> to get array.o
+  Type <code>autoconf && libtoolize && aclocal && automake --add-missing && autoreconf && ./configure && make && sudo make install</code> to install the array
 # Have fun!
