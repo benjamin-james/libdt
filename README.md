@@ -9,6 +9,7 @@ A dynamic array library for general purpose.
   To use the library, simply type
   <br><code>#include "array.h"</code><br>
   into the file using the functions, and link with <code>-LLIBDIR -Wl,-rpath -Wl,LIBDIR</code> where LIBDIR is the location of the installed library.
+  Details can be found about linking in the output of <code>sudo make install</code> when you install it
 # Compiling
   Type <code>autoconf && libtoolize && aclocal && automake --add-missing && autoreconf && ./configure && make && sudo make install</code> to install the array
 # Have fun!
