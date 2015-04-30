@@ -1,7 +1,7 @@
 # array
 A dynamic array library for general purpose.
 # Prerequisites
-  Must have a C compiler installed (i.e. <code>gcc</code>
+  Must have a C compiler installed (i.e. <code>gcc</code>)<br>
   Must have GNU Autotools installed (i.e. <code>autoconf</code>, <code>automake</code>, <code>libtool</code>)
 # Summary
   Uses the <code>array</code> structure to hold data. 
