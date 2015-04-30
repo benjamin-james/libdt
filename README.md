@@ -11,7 +11,7 @@ A dynamic array library for general purpose.
 # Use
   To use the library, simply type
   <br><code>#include "array.h"</code><br>
-  into the file using the functions, and link with <br><code>-LLIBDIR -Wl,-rpath -Wl,LIBDIR</code><br> where <code>LIBDIR</code> is the location of the installed library (which is usually <code>/usr/local/lib</code> for the library and <code>/usr/local/include</code> for the header).<br>
+  into the file using the functions, and link with <br><code>-LLIBDIR -Wl,-rpath -Wl,LIBDIR -larray</code><br> where <code>LIBDIR</code> is the location of the installed library (which is usually <code>/usr/local/lib</code> for the library and <code>/usr/local/include</code> for the header).<br>
   Details can be found about linking in the output of <code>sudo make install</code> when you install it
 # Compiling
   Once in the repository, type these commands in order:
