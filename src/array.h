@@ -1,6 +1,10 @@
 #ifndef ARRAY_H
 #define ARRAY_H
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 struct array {
 	int alloc,size;
 	void **buffer;
@@ -29,5 +33,9 @@ int array_get_size(const struct array *a);
 
 void array_shuffle(struct array *a);
 void array_sort(struct array *a);
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif
