@@ -14,6 +14,8 @@ A dynamic array library for general purpose.
   into the file using the library, and,when building an application, link with <br><code>-LLIBDIR -Wl,-rpath -Wl,LIBDIR -larray</code><br> where <code>LIBDIR</code> is the location of the installed library (which is usually <code>/usr/local/lib</code> for the library and <code>/usr/local/include</code> for the header).<br>
   Details can be found about linking in the output of <code>sudo make install</code> when you install it
 # Compiling
-  Once in the repository, type these commands in order:
-  <br><code>autoconf</code>, <code>libtoolize</code>, <code>aclocal</code>, <code>autoheader</code>, <code>automake --add-missing</code>, <code>autoreconf</code><br> to configure, then the infamous <br><code>./configure && make && sudo make install</code><br> to compile and install the library
+  Once in the repository, the <code>autogen.sh</code> script will 
+automate the autotools to produce the familiar process <code>./configure 
+&& make && sudo make install</code> which will most likely install to 
+<code>/usr/local/</code>
 # Have fun!
