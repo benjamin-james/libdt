@@ -37,7 +37,7 @@ extern "C" {
 
 #define obvec_set(o, index, element) \
 	( obvec_set_(obvec_raw_list(o), index) ? -1 :\
-	  ((o)->data[index] = (element), 0), (o)->size = _max((o)->size, index), 0 )
+	  ((o)->data[index] = (element), 0), 0)
 
 #define obvec_remove(o, index) \
 	obvec_remove_(obvec_raw_list(o), index)

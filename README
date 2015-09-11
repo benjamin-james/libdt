@@ -1,5 +1,5 @@
 			OBVEC
-	A generic dynamic array library
+	A dynamic array library using obstacks
 
 SUMMARY
 	This library uses obstacks, a GNU extension designed to
