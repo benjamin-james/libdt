@@ -1,0 +1,23 @@
+			OBVEC
+	A generic dynamic array library
+
+SUMMARY
+	This library uses obstacks, a GNU extension designed to
+	pre-allocate in fixed size blocks, such as array elements,
+	in a memory pool.
+
+	This library provides an interface to the obstacks and
+	provides direct access to the array. It also facilitates
+	memory management to automatically add or remove elements.
+
+INSTALLING
+	This project uses autoconf/automake/libtool, so running
+	'./autogen.sh' (which is 'autoreconf -i'), './configure',
+	'make', then 'make install' will install the library.
+
+DEPENDENCIES
+	This library does use obstacks, a GNU extension and
+	uses autoconf/automake/libtool for building and installing.
+	
+LICENSE
+	See the attached LICENSE document.
