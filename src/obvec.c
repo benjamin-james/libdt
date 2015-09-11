@@ -31,7 +31,7 @@ int obvec_insert_(struct obstack *ob_stack, void **data, size_t data_size, size_
 int obvec_remove_(struct obstack *ob_stack, void **data, size_t data_size, size_t *obvec_size, size_t *obvec_alloc, size_t index)
 {
 	if (index == *obvec_size) {
-		obstack_free(ob_stack, data[index])
+		obstack_free(ob_stack, data[index]);
 		*obvec_size--;
 	} else
 		memset(data[index], 0, data_size);
