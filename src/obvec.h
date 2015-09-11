@@ -8,8 +8,18 @@
 extern "C" {
 #endif
 
-#define obstack_chunck_alloc malloc
+#ifndef _max
+#define _max(a,b) \
+	(((a) > (b)) ? (a) : (b))
+#endif
+
+#ifndef obstack_chunk_alloc
+#define obstack_chuck_alloc malloc
+#endif
+
+#ifndef obstack_chunk_free
 #define obstack_chunk_free free
+#endif
 
 #define obvec_t(T) \
 	struct { \
@@ -19,7 +29,7 @@ extern "C" {
 	}
 
 #define obvec_init(o) \
-	obstack_init((o)->ob_stack)
+	obstack_init(&(o)->ob_stack)
 
 #define obvec_destroy(o) \
 	obstack_free(&(o)->ob_stack, NULL)
@@ -41,6 +51,9 @@ extern "C" {
 
 #define obvec_remove(o, index) \
 	obvec_remove_(obvec_raw_list(o), index)
+
+#define obvec_pop(o) \
+	obvec_remove_(obvec_raw_list(o), o->size - 1)
 
 int obvec_grow_(struct obstack *ob_stack, void **data, size_t data_size, size_t *obvec_size, size_t *obvec_alloc);
 
