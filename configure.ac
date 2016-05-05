@@ -1,21 +1,14 @@
 AC_PREREQ([2.69])
-AC_INIT(array, 0.2)
-AC_CONFIG_SRCDIR([src/array.c])
+AC_INIT(libdt, 0.2)
+AC_CONFIG_SRCDIR([libdt/libdt.h])
 AM_INIT_AUTOMAKE([subdir-objects])
-AC_CONFIG_HEADERS([src/config.h])
+AC_CONFIG_HEADERS([libdt/config.h])
 AC_CONFIG_MACRO_DIRS([m4])
 
 AC_PROG_CC
 AC_PROG_INSTALL
 AC_PROG_MAKE_SET
 LT_INIT
-
-AC_CHECK_HEADERS([stdlib.h string.h])
-
-AC_TYPE_SIZE_T
-
-AC_FUNC_REALLOC
-AC_CHECK_FUNCS([memset])
 
 AC_CONFIG_FILES([Makefile])
 AC_OUTPUT

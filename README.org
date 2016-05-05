@@ -1,0 +1,10 @@
+* libdt
+A generic data type library
+* Summary
+
+* Installation
+This project uses autoconf/automake/libtool, so running
+'./autogen.sh', './configure',
+'make', then 'make install' will install the library.
+* License
+See the attached [[file:LICENSE][LICENSE]] document.
