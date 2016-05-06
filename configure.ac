@@ -2,6 +2,7 @@ AC_PREREQ([2.69])
 AC_INIT(libdt, 0.2)
 AC_CONFIG_SRCDIR([libdt/libdt.h])
 AM_INIT_AUTOMAKE([subdir-objects])
+AM_SILENT_RULES([yes])
 AC_CONFIG_HEADERS([libdt/config.h])
 AC_CONFIG_MACRO_DIRS([m4])
 
