@@ -13,7 +13,6 @@ void test_array_remove();
 void test_array_peek();
 void test_array_get();
 void test_array_find();
-void test_array_sort();
 void test_array_iter();
 
 int int_cmp(const void *left, const void *right);
@@ -27,7 +26,6 @@ int main(int argc, char **argv)
 	test_array_peek();
 	test_array_get();
 	test_array_find();
-	test_array_sort();
 	test_array_iter();
 	return test_status;
 }
@@ -189,26 +187,6 @@ void test_array_find()
 	dt_array_destroy(&array);
 }
 
-void test_array_sort()
-{
-	struct dt_array array;
-	test_assert(
-		dt_array_create(&array, 10, sizeof(int), 2, 0, malloc, calloc, free) == 0,
-		"Failed to create array");
-        int a = 73;
-	int b = 12;
-	int c = 43;
-	dt_array_push(&array, &a);
-	dt_array_push(&array, &b);
-	dt_array_push(&array, &c);
-	test_assert(dt_array_sort(&array, int_cmp) == 0, "The array did not sort");
-        test_assert(*(int *)array.data[0] == 12, "The data is not sorted: %d != %d", *(int *)array.data[0], 12);
-	test_assert(*(int *)array.data[1] == 43, "The data is not sorted: %d != %d", *(int *)array.data[1], 43);
-	test_assert(*(int *)array.data[2] == 73, "The data is not sorted: %d != %d", *(int *)array.data[2], 73);
-	test_assert(array.size == 3, "Array size is not correct");
-	dt_array_destroy(&array);
-}
-
 void test_array_iter()
 {
 	struct dt_array array;
@@ -238,7 +216,21 @@ void test_array_iter()
 
 int int_cmp(const void *left, const void *right)
 {
-	int l = *(int *)left;
-	int r = *(int *)right;
-	return r - l;
+	int *lp = (int *)left;
+	int *rp = (int *)right;
+	printf("%p and %p\t", lp, rp);
+	int l = *(const int *) left;
+        int r = *(const int *) right;
+	printf("%d vs %d ", l, r);
+
+	if (l > r) {
+                puts(">");
+		return 1;
+	} else if (l < r) {
+		puts("<");
+		return -1;
+	} else {
+		puts("=");
+		return 0;
+	}
 }
