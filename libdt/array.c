@@ -8,8 +8,8 @@ int _expand(struct dt_array *a, size_t new_alloc)
 		return -1;
 	}
 	a->alloc = new_alloc;
-	memcpy(data, a->data, a->size * sizeof(*data));
 	if (a->data != NULL) {
+		memcpy(data, a->data, a->size * sizeof(*data));
 		a->m_free(a->data);
 	}
 	a->data = data;
@@ -29,7 +29,11 @@ int dt_array_create(struct dt_array *a, size_t initial_size, size_t item_size, d
         if (expand_factor <= 1.0) {
 		expand_factor = 2;
 	}
-	a->alloc = 0;
+	if (initial_size == 0) {
+		initial_size = 1;
+	}
+	a->alloc = 1;
+	a->expand_factor = expand_factor;
 	a->size = 0;
 	a->item_size = item_size;
 	a->deep = deep;
