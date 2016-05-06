@@ -1,3 +1,4 @@
+[[https://travis-ci.org/benjamin-james/libdt.svg?branch=master]]
 * libdt
 A generic data type library
 * Summary
